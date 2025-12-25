@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    folder: "src/data/projects"
+    create: true
+    format: "json"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Text", name: "text", widget: "text" }
+      - { label: "Presentation (PDF)", name: "pdf", widget: "file", media_types: ["application/pdf"] }
