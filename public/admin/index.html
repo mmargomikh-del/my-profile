@@ -1,9 +1,11 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Admin</title>
-    <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"></script>
   </head>
-  <body></body>
+  <body>
+    <!-- Decap CMS must load AFTER body exists -->
+    <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js" defer></script>
+  </body>
 </html>
