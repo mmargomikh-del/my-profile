@@ -1,7 +1,7 @@
 backend:
-  name: github
-  repo: VeronikaHurska/margo-portfolio
+  name: git-gateway
   branch: main
+
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
