@@ -3,96 +3,119 @@ import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-// ✅ REQUIRED for Netlify + Vite
+/* Netlify + Vite safe worker */
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.js";
 
 export default function PdfCarousel({ pdf }) {
   const [numPages, setNumPages] = useState(null);
-  const [page, setPage] = useState(1);
+  const [current, setCurrent] = useState(0);
 
   if (!pdf) return null;
 
-  // ✅ Make CMS-relative path absolute
   const pdfUrl = pdf.startsWith("http")
     ? pdf
     : `${window.location.origin}${pdf}`;
 
   function onLoadSuccess({ numPages }) {
     setNumPages(numPages);
-    setPage(1);
+    setCurrent(0);
   }
 
-  function nextPage() {
-    setPage((p) => Math.min(p + 1, numPages));
-  }
-
-  function prevPage() {
-    setPage((p) => Math.max(p - 1, 1));
-  }
+  const next = () =>
+    setCurrent((c) => Math.min(c + 1, numPages - 1));
+  const prev = () =>
+    setCurrent((c) => Math.max(c - 1, 0));
 
   return (
-    <div
-      style={{
-        width: "100%",
-        padding: "1rem",
-        background: "#2b2b2b",
-        borderRadius: "12px",
-        position: "relative",
-      }}
-    >
+    <div style={styles.wrapper}>
       <Document
         file={pdfUrl}
         onLoadSuccess={onLoadSuccess}
-        onLoadError={(err) => console.error("PDF load error:", err)}
         loading={<p>Loading PDF…</p>}
         error={<p style={{ color: "red" }}>Failed to load PDF</p>}
       >
-        <Page
-          pageNumber={page}
-          width={600}
-          renderAnnotationLayer={false}
-          renderTextLayer={false}
-        />
+        {numPages &&
+          Array.from(new Array(numPages)).map((_, index) => (
+            <div
+              key={index}
+              style={{
+                ...styles.slide,
+                transform: `translateX(${(index - current) * 100}%)`,
+              }}
+            >
+              <Page
+                pageNumber={index + 1}
+                width={500}
+                renderTextLayer={false}
+                renderAnnotationLayer={false}
+              />
+            </div>
+          ))}
       </Document>
 
       {/* Controls */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "1rem",
-          alignItems: "center",
-        }}
+      <button onClick={prev} disabled={current === 0} style={styles.left}>
+        ←
+      </button>
+      <button
+        onClick={next}
+        disabled={current === numPages - 1}
+        style={styles.right}
       >
-        <button onClick={prevPage} disabled={page <= 1}>
-          ← Prev
-        </button>
+        →
+      </button>
 
-        <span>
-          Page {page} / {numPages || "?"}
-        </span>
-
-        <button onClick={nextPage} disabled={page >= numPages}>
-          Next →
-        </button>
+      <div style={styles.counter}>
+        {current + 1} / {numPages}
       </div>
-
-      {/* Open full PDF */}
-      <a
-        href={pdfUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          position: "absolute",
-          top: "1rem",
-          right: "1rem",
-          color: "#7aa2ff",
-          textDecoration: "underline",
-        }}
-      >
-        Open PDF
-      </a>
     </div>
   );
 }
+
+/* Inline styles to avoid CSS bugs */
+const styles = {
+  wrapper: {
+    position: "relative",
+    width: "100%",
+    maxWidth: "540px",
+    height: "700px",
+    overflow: "hidden",
+    marginTop: "1rem",
+    borderRadius: "12px",
+    background: "#1e1e1e",
+  },
+  slide: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    transition: "transform 0.4s ease",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  left: {
+    position: "absolute",
+    left: "10px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    zIndex: 10,
+  },
+  right: {
+    position: "absolute",
+    right: "10px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    zIndex: 10,
+  },
+  counter: {
+    position: "absolute",
+    bottom: "10px",
+    right: "50%",
+    transform: "translateX(50%)",
+    fontSize: "12px",
+    opacity: 0.7,
+  },
+};
