@@ -1,7 +1,5 @@
 backend:
-  name: github
-  repo: mmargomikh-del/my-profile
-  branch: main
+  name: git-gateway
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
