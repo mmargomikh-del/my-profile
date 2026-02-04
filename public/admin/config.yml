@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: VeronikaHurska/margo-portfolio
+  repo: mmargomikh-del/my-profile
   branch: main
 
 media_folder: "public/uploads"
