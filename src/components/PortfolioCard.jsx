@@ -31,7 +31,8 @@ export default function PortfolioCard({ project }) {
         <div className="portfolio-content">
           {images && images.length > 0 && (
             <div className="portfolio-gallery">
-              <div className="gallery-main">
+              {/* Desktop: carousel with navigation */}
+              <div className="gallery-main gallery-desktop">
                 <img
                   src={images[currentImageIndex]}
                   alt={`${title} - Image ${currentImageIndex + 1}`}
@@ -71,6 +72,18 @@ export default function PortfolioCard({ project }) {
                   ))}
                 </div>
               )}
+
+              {/* Mobile: all images stacked vertically */}
+              <div className="gallery-mobile">
+                {images.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`${title} - Image ${idx + 1}`}
+                    className="gallery-image-mobile"
+                  />
+                ))}
+              </div>
             </div>
           )}
 

@@ -5,10 +5,11 @@ export default function App() {
   return (
     <div style={{
       width: "100%",
-      maxWidth: 960,
+      maxWidth: "100%",
       margin: "0 auto",
       padding: "2rem 1.5rem",
-      minHeight: "100vh"
+      minHeight: "100vh",
+      overflowX: "hidden"
     }}>
       <Hero />
       <Projects />

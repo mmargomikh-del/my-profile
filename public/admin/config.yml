@@ -7,6 +7,16 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "hero"
+        label: "Hero Section"
+        file: "src/data/hero.json"
+        fields:
+          - { label: "Name", name: "name", widget: "string", required: true, hint: "Your name or brand name" }
+          - { label: "Tagline", name: "tagline", widget: "text", required: true, hint: "Brief description of what you do" }
+          - { label: "Photo", name: "photo", widget: "image", required: false, hint: "Your profile photo (optional)" }
   - name: "projects"
     label: "Projects"
     folder: "src/data/projects"
