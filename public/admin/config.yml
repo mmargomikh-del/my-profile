@@ -6,6 +6,9 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
+media_library:
+  name: uploadcare
+
 collections:
   - name: "settings"
     label: "Site Settings"
@@ -14,9 +17,22 @@ collections:
         label: "Hero Section"
         file: "src/data/hero.json"
         fields:
-          - { label: "Name", name: "name", widget: "string", required: true, hint: "Your name or brand name" }
-          - { label: "Tagline", name: "tagline", widget: "text", required: true, hint: "Brief description of what you do" }
-          - { label: "Photo", name: "photo", widget: "image", required: false, hint: "Your profile photo (optional)" }
+          - label: "Name"
+            name: "name"
+            widget: "string"
+            required: true
+            hint: "Your name or brand name"
+          - label: "Tagline"
+            name: "tagline"
+            widget: "text"
+            required: true
+            hint: "Brief description of what you do"
+          - label: "Photo"
+            name: "photo"
+            widget: "image"
+            required: false
+            hint: "Your profile photo (optional)"
+
   - name: "projects"
     label: "Projects"
     folder: "src/data/projects"
@@ -24,28 +40,59 @@ collections:
     format: "json"
     slug: "{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string", required: true }
-      - { label: "Description", name: "description", widget: "text", required: true, hint: "Short description shown in collapsed card" }
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        required: true
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: true
+        hint: "Short description shown in collapsed card"
+
       - label: "Details"
         name: "details"
         widget: "object"
         fields:
-          - { label: "Challenge", name: "challenge", widget: "text", required: false, hint: "What problem were you solving?" }
-          - { label: "Solution", name: "solution", widget: "text", required: false, hint: "How did you solve it?" }
+          - label: "Challenge"
+            name: "challenge"
+            widget: "text"
+            required: false
+            hint: "What problem were you solving?"
+          - label: "Solution"
+            name: "solution"
+            widget: "text"
+            required: false
+            hint: "How did you solve it?"
           - label: "Results"
             name: "results"
             widget: "list"
             required: false
-            field: { label: "Result", name: "result", widget: "string" }
+            field:
+              label: "Result"
+              name: "result"
+              widget: "string"
             hint: "Achievements, metrics, outcomes"
-      - { label: "Tags", name: "tags", widget: "list", required: false, hint: "Technologies, skills, tools used" }
+
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        hint: "Technologies, skills, tools used"
+
       - label: "Images"
         name: "images"
         widget: "list"
         required: false
-        field: { label: "Image", name: "image", widget: "image" }
+        field:
+          label: "Image"
+          name: "image"
+          widget: "image"
         hint: "Project images for the gallery"
-      - { label: "Project Link", name: "link", widget: "string", required: false, hint: "External project URL (optional)" }
 
-
-
+      - label: "Project Link"
+        name: "link"
+        widget: "string"
+        required: false
+        hint: "External project URL (optional)"
