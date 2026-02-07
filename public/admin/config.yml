@@ -2,8 +2,6 @@ backend:
   name: github
   repo: mmargomikh-del/my-profile
   branch: main
-  site_id: f3537de6-3502-4589-96bf-60b6e44f2fbd
-
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -48,5 +46,6 @@ collections:
         field: { label: "Image", name: "image", widget: "image" }
         hint: "Project images for the gallery"
       - { label: "Project Link", name: "link", widget: "string", required: false, hint: "External project URL (optional)" }
+
 
 
