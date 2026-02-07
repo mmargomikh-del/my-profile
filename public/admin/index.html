@@ -3,7 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title>Admin</title>
-    <script src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js" defer></script>
+
+    <!-- Explicitly tell Decap CMS where the config is -->
+    <link rel="cms-config-url" href="/admin/config.yml" />
+
+    <script
+      src="https://unpkg.com/decap-cms@^3/dist/decap-cms.js"
+      defer
+    ></script>
   </head>
   <body></body>
 </html>
